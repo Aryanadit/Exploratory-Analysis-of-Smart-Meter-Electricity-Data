@@ -1,132 +1,94 @@
-# ------------------------------------------------------
-# Script: setup_github_project.py
-# Purpose: Prepare all core files and folders for your GitHub
-#          smart meter electricity data analysis project.
-# ------------------------------------------------------
+# ⚡ Exploratory Analysis of Smart Meter Electricity Data (US)
 
-import os
+![Smart Meter Analysis Banner](images/banner.png)
 
-# 1. Create necessary directories
-os.makedirs('data', exist_ok=True)
-os.makedirs('images', exist_ok=True)
+---
 
-# 2. Create README.md with detailed project description
-readme_content = """
-# Exploratory Analysis of Smart Meter Electricity Data (US)
+## 📝 Project Overview
 
-This project provides an end-to-end Exploratory Data Analysis (EDA) of household electricity consumption using smart meter data. The analysis is performed in a Jupyter Notebook, uncovering consumption patterns, seasonality, anomalies, and actionable insights for utilities and data professionals.
+This repository provides an in-depth, visually driven exploratory data analysis (EDA) of hourly electricity consumption recorded by smart meters in U.S. households. Leveraging time-series techniques, statistical summaries, and illustrations, the project reveals critical usage patterns, seasonal effects, anomalies, and actionable insights tailored for:
 
-## Table of Contents
+- **⚡ Utility providers** — optimize grid operations and resource planning
+- **🔬 Researchers** — understand energy demand on a granular scale
+- **📊 Data scientists** — build, validate, or benchmark forecasting models
+- **🏛️ Policy makers** — assess impact of demand-management programs
 
-- Motivation
-- Dataset
-- Methodology
-- Key Insights
-- Visualizations
-- Project Structure
-- Installation & Setup
-- Usage
-- Requirements
-- Contributing
-- License
+---
 
-## Motivation
+## 🔍 Motivation
 
-Understanding granular electricity usage is essential for:
-- Utility Companies: Optimizing load forecasting and demand-side management.
-- Researchers: Informing energy efficiency and policy studies.
-- Data Scientists: Practicing real-world time series analysis, feature engineering, and anomaly detection.
+Modern smart meters capture electricity usage at high time resolution, unlocking the ability to:
 
-## Dataset
+- **Track daily/weekly cycles:** Morning/evening demand peaks, weekday vs. weekend profiles
+- **Visualize seasonality:** Detect summer cooling or winter heating loads
+- **Spot outliers/anomalies:** Identify meter issues or extreme usage events
+- **Assess long-term trends:** See the evolution of baseline demand over years
 
-- Source: US household smart meter readings (15-minute intervals).
-- Format: CSV files with timestamp, meter ID, and kWh consumed.
-- Columns: Timestamp, Meter ID, Usage (kWh)
+By analyzing and visualizing these dynamics, stakeholders are empowered to make data-driven decisions for demand response, infrastructure upgrades, and effective customer outreach.
 
-## Methodology
+---
 
-- Data Ingestion & Cleaning: Load and parse data; handle missing values and outliers.
-- Feature Engineering: Extract hour, weekday, month, season; compute rolling statistics.
-- Exploratory Analysis: Decompose time series; analyze aggregate stats; detect anomalies.
-- Visualization: Plot daily/monthly trends, heatmaps, boxplots, and seasonal patterns.
+## ⚙️ Installation & Setup
 
-## Key Insights
+1. **Clone the repository:**
+git clone https://github.com/Aryanadit/Exploratory-Analysis-of-Smart-Meter-Electricity-Data.git
+cd Exploratory-Analysis-of-Smart-Meter-Electricity-Data
 
-- Peak Usage: Evening hours (5–8 PM) see highest consumption.
-- Weekly Trends: Usage dips on weekends.
-- Seasonality: Increased demand in summer due to cooling needs.
-- Anomalies: Spikes outside typical hours may indicate meter issues or special events.
+2. **(Optional) Create & activate a virtual environment:**
+python3 -m venv venv
+source venv/bin/activate # On Windows: venv\Scripts\activate
 
-## Visualizations
+3. **Install dependencies:**
+pip install -r requirements.txt
 
-- Daily & Monthly Trend Plots
-- Heatmaps (Hour × Weekday)
-- Boxplots (by Month/Day)
-- Seasonal Decomposition Plots
+4. **Download smart meter data:**
+- Use datasets such as the [London Smart Meter Dataset](https://data.london.gov.uk/dataset/smartmeter-energy-use-data-in-london-households)
+- Place CSV files in the `data/` directory (e.g., `data/consumption.csv`)
 
+5. **Launch the analysis notebook:**
+jupyter notebook exploratory-analysis-of-smart-meter-electricity-us.ipynb
 
-## Installation & Setup
+---
 
-1. Clone the repo:
-    ```
-    git clone https://github.com/Aryanadit/exploratory-smart-meter-electricity.git
-    cd exploratory-smart-meter-electricity
-    ```
-2. (Optional) Create and activate a Python virtual environment:
-    ```
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\\Scripts\\activate
-    ```
-3. Install requirements:
-    ```
-    pip install -r requirements.txt
-    ```
+## 🚦 Notebook Walkthrough
 
-## Usage
+1. **Data Loading & Cleaning**
+- Import CSVs, parse timestamps, clean missing or duplicate entries
+- Resample to hourly intervals
 
-1. Place your input CSV files in data/.
-2. Start Jupyter Notebook:
-    ```
-    jupyter notebook
-    ```
-3. Open and run exploratory-analysis-of-smart-meter-electricity-us.ipynb to reproduce the analysis and generate visualizations.
+2. **Descriptive Statistics**
+- Calculate mean, median, standard deviation
+- Plot histograms and boxplots to check distribution and outliers
 
-## Requirements
+3. **Time-Series Visualization**
+- Line plots for daily, weekly, monthly trends
+- Overlay daily cycles and generate hour-vs-month heatmaps
 
-- pandas >= 1.3.0
-- numpy >= 1.21.0
-- matplotlib >= 3.4.0
-- seaborn >= 0.11.0
-- jupyter >= 1.0.0
-- scikit-learn >= 1.0.0
+4. **Seasonal Decomposition (STL)**
+- Decompose series into trend, seasonal, and residuals
 
-## Contributing
+5. **Anomaly Detection (Optional)**
+- Flag high/low readings using Z-scores or IQR thresholds
 
-Pull requests are welcome!
-Please fork the repository, create a feature branch, commit your changes, push to the branch, and open a pull request.
+---
 
+## 🌟 Key Insights
 
-# 3. Create requirements.txt
-requirements_content = """
-pandas>=1.3.0
-numpy>=1.21.0
-matplotlib>=3.4.0
-seaborn>=0.11.0
-jupyter>=1.0.0
-scikit-learn>=1.0.0
-"""
-with open('requirements.txt', 'w') as f:
-    f.write(requirements_content.strip())
+- **Peak Usage:** Highest consumption between 6–9 PM (especially on weekdays)
+- **Seasonality:** Summer afternoons show usage surges (air conditioning loads)
+- **Weekly Trends:** Slight dip in demand on weekends
+- **Anomalies:** Occasional outlier days often signal meter faults or unique events
 
-# 4. Create a placeholder Jupyter Notebook
-notebook_content = """{
- "cells": [],
- "metadata": {},
- "nbformat": 4,
- "nbformat_minor": 2
-}"""
-with open('exploratory-analysis-of-smart-meter-electricity-us.ipynb', 'w') as f:
-    f.write(notebook_content)
+---
 
-# 5. (Optional) Print a status message
-print("All files and folders created successfully.")
+## 📈 Visualizations
+
+- Daily and monthly trend line plots
+- Heatmaps visualizing hourly consumption across weeks/months
+- Boxplots to compare daily and monthly distributions
+- STL plots showing trend and seasonality
+
+_Example output figures are saved in the `images/` folder. Run the notebook to regenerate plots._
+
+---
+
